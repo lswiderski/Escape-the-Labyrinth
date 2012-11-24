@@ -8,19 +8,19 @@ resources::resources(void)
 	Player.loadFromFile("Data/sprites/Player.png");
 	GUI.loadFromFile("Data/sprites/GUI.png");
 
-	s_key.loadFromFile("Data/music/klucz.wav");
-	s_lancuch.loadFromFile("Data/music/lancuch.wav");
-	s_menuButton.loadFromFile("Data/music/menubutton.wav");
-	s_tp.loadFromFile("Data/music/portal.wav");
-	s_potion.loadFromFile("Data/music/potion.wav");
-	s_lose.loadFromFile("Data/music/przegrana.wav");
-	s_win.loadFromFile("Data/music/wygrana.wav");
-	s_timer.loadFromFile("Data/music/timer.wav");
-	s_lava.loadFromFile("Data/music/lava.wav");
-	s_box.loadFromFile("Data/music/skrzynia.wav");
+	s_key.loadFromFile("Data/music/klucz.ogg");
+	s_lancuch.loadFromFile("Data/music/lancuch.ogg");
+	s_menuButton.loadFromFile("Data/music/menubutton.ogg");
+	s_tp.loadFromFile("Data/music/portal.ogg");
+	s_potion.loadFromFile("Data/music/potion.ogg");
+	s_lose.loadFromFile("Data/music/przegrana.ogg");
+	s_win.loadFromFile("Data/music/wygrana.ogg");
+	s_timer.loadFromFile("Data/music/timer.ogg");
+	s_lava.loadFromFile("Data/music/lava.ogg");
+	s_box.loadFromFile("Data/music/skrzynia.ogg");
 
-	bgm.openFromFile("Data/music/plansza.wav");
-	menu_music.openFromFile("Data/music/menu1.wav");
+	bgm.openFromFile("Data/music/plansza.ogg");
+	menu_music.openFromFile("Data/music/menu1.ogg");
 }
 
 
