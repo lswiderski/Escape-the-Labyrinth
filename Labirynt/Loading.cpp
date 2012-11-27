@@ -1,6 +1,6 @@
 #include "Loading.h"
 #include "Options.h"
-
+#include "game.h"
 #include <iostream>
 Loading::Loading (void)
 {
@@ -24,13 +24,25 @@ int Loading::Run (sf::RenderWindow &App)
 	pass.setPosition(200,160);
 	pass.setColor(sf::Color::White);
 
+	lose.setFont(resources::Font);
+	lose.setCharacterSize(20);
+	lose.setString("You choosed wrong way. Try again if u can.");
+	lose.setPosition(200,160);
+	lose.setColor(sf::Color::White);
+
 	sf::Sound win;
 	bool played=false;
+	std::string mapName=Game::Maps[Game::getLevel()];
+
+	mapName.erase(0,12);
+	mapName.erase(mapName.size()-4,4);
+
 	win.setBuffer(resources::s_win);
 	win.setVolume(Options::Sound_Volume);
 	load.setFont(resources::Font);
 	load.setCharacterSize(20);
-	load.setString("Loading level "+Game::ToString(level+1));
+	
+	load.setString("Loading level "+mapName);
 	load.setPosition(200,200);
 	load.setColor(sf::Color::White);
 	sf::View CameraPosition;
@@ -61,8 +73,9 @@ int Loading::Run (sf::RenderWindow &App)
 			return 1;}
 		App.setView(CameraPosition);
 		if(!first)
-		{	
-			App.draw(pass);
+		{	if(Game::wrongpath)
+				App.draw(lose);
+		
 		}
 		if(!first && !played)
 		{

@@ -33,7 +33,16 @@ void Map::loadMap(const char *filename)
 	fp = fopen(filename,"r+b");
 	if(fp != NULL)
 	{
+		fread(tmp,sizeof(int),1,fp);
+		for (int i=0;i<tmp[0];i++)
+		{
 
+			fread(ctmp,sizeof(char),1,fp);
+			stmp+=ctmp[0];
+		}
+		mapName=stmp;
+		stmp="";
+		std::cout<<"mapName: "<<mapName<<std::endl;
 		fread(loadx, sizeof(int), 1 , fp);
 		fread(loady, sizeof(int), 1 , fp);
 		fread(loadz, sizeof(int), 1 , fp);

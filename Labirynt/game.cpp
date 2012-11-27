@@ -7,7 +7,7 @@ short Game::map=0;
 int Game::PLAYER_X=100;
 int Game::PLAYER_Y=100;
 bool Game::loaded=false;
-
+std::vector<std::string> Game::Maps;
 int Game::LPkt=0;
 
 void Game::setLevel(short lvl)
@@ -39,7 +39,7 @@ void Game::Reset()
 	Running = true;
 	showDialogBox=false;
 
-
+	
 	zebrane_mikstury=0;
 	Czas_Gry.restart();
 	przeszly_czas=0;
@@ -53,11 +53,21 @@ void Game::Reset()
 	G_PLAYER_X=mapa.coordinates[0];
 	G_PLAYER_Y=mapa.coordinates[1];
 	player.teleport(G_PLAYER_X,G_PLAYER_Y);
+	std::cout<<"zresetowalo xD"<<std::endl;
+	
 }
 void Game::restart(bool next){
 
 	Running = true;
 	
+	if(done_maps[player.getLvl()]==true)
+	{
+		std::cout<<"Plansza Byla"<<std::endl;
+	}
+	else
+	{
+		std::cout<<"Planszy Niebylo"<<std::endl;
+	}
 	if(next)
 	{
 		for (int i=0;i<Maps.size();i++)
@@ -65,6 +75,7 @@ void Game::restart(bool next){
 			std::cout<<"i: "<<i<<" Maps: "<<Maps[i]<<" nextlvl: "<<nextLvl<<std::endl;
 			if(Maps[i]=="Data/levels/"+nextLvl)
 			{
+				done_maps[player.getLvl()]=true;
 				player.setLvl(i);
 				break;
 			}
@@ -74,8 +85,7 @@ void Game::restart(bool next){
 			}
 			else if(nextLvl=="wrongpath")
 			{
-				losed=true;
-				Game::reset=true;
+				wrongpath=true;
 			}
 		}
 		//player.setLvl(player.getLvl()+1);
@@ -91,7 +101,7 @@ void Game::restart(bool next){
 	player.setKeys(0);
 	LPkt=player.getTotalPkt();
 
-	if(player.getLvl()>Maps.size()-1) winner=true;
+	//if(player.getLvl()>Maps.size()-1) winner=true;
 	if(!winner)
 	{
 	
@@ -108,6 +118,7 @@ void Game::restart(bool next){
 
 Game::Game (void)	
 {
+	
 	nextLvl="";
 	winner= false;
 	win=false;
@@ -198,9 +209,11 @@ Game::Game (void)
 	showTlo=true;
 	Czas_Gry.restart();
 	przeszly_czas=0;
-	
+done_maps.clear();
+done_maps.resize(Maps.size(),false);
 }
 
+bool Game::wrongpath=false;
 bool Game::losed=false;
 bool Game::reset=false;
 
@@ -238,7 +251,7 @@ int Game::Run (sf::RenderWindow &Window)
 		//KonamiCode::konami=false;
 	}
 
-
+	
 	
 	if(reset)
 	{
@@ -249,6 +262,17 @@ int Game::Run (sf::RenderWindow &Window)
 
 	while (Running)
 	{	
+		if(wrongpath)
+		{
+
+			Lose::left_life=player.getLife();
+			player.addLife(-1);
+
+			restart(true);
+			//losed=true;
+			wrongpath=false;
+			return 2;
+		}
 		if(losed)
 		{
 			restart(false);
@@ -258,6 +282,10 @@ int Game::Run (sf::RenderWindow &Window)
 
 		if(winner)
 		{
+			std::cout<<"XDDDDDDDDDDDDDDDDDDDDDDDD"<<std::endl;
+			nextLvl="";
+			Reset();
+			win=false;
 			return 7;
 		}
 		if (loaded)
@@ -273,13 +301,23 @@ int Game::Run (sf::RenderWindow &Window)
 		}
 		if(win)
 			{
-				player.setTotalPkt(player.getPkt()+time_left);
-				player.setPkt(player.getPkt()+time_left);
-
+				if(!done_maps[player.getLvl()])
+				{
+					player.setTotalPkt(player.getPkt()+time_left);
+					player.setPkt(player.getPkt()+time_left);
+				}
+				
+				win=false;
 				restart(true);
-				if(winner) return 7;
+				if(winner) {
+					nextLvl="";
+					Reset();
+					return 7;
+				}
 		return 4;
 		}
+		if(wrongpath)
+			wrongpath=false;
 		if(Czas_Gry.getElapsedTime().asSeconds()>1)
 		{
 			przeszly_czas++;
@@ -330,7 +368,7 @@ int Game::Run (sf::RenderWindow &Window)
 
 				if(mapa.MapVector[(int)(player.getY()/64)][(int)(player.getX()/64)][1]==4)
 				{
-					win=true;
+					
 					for (int i=0;i<mapa.portals.size();i++)
 					{
 						//std::cout<<mapa.portals[i][0]<<" "<<mapa.portals[i][1]<<" "<<mapa.portals[i][2]<<std::endl;
@@ -343,7 +381,12 @@ int Game::Run (sf::RenderWindow &Window)
 							break;
 						}
 					}
-					
+					if(nextLvl=="wrongpath")
+					{
+						wrongpath=true;
+					}
+					else 
+						win=true;
 				}
 				else if(mapa.MapVector[(int)(player.getY()/64)][(int)(player.getX()/64)][1]==12)
 				{
@@ -606,6 +649,7 @@ int Game::Run (sf::RenderWindow &Window)
 		{
 			Sounds.setBuffer(resources::s_potion);
 			play_sound=true;
+			if(!done_maps[player.getLvl()])
 			player.addPkt(10);
 			zebrane_mikstury+=10;
 			mapa.MapVector[(int)(player.getY()/64)][(int)(player.getX()/64)][1]=0;
@@ -614,6 +658,7 @@ int Game::Run (sf::RenderWindow &Window)
 		{
 			Sounds.setBuffer(resources::s_potion);
 			play_sound=true;
+			if(!done_maps[player.getLvl()])
 			player.addPkt(10);
 			zebrane_mikstury-=5;
 			mapa.MapVector[(int)(player.getY()/64)][(int)(player.getX()/64)][1]=0;

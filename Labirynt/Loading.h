@@ -6,7 +6,7 @@ class Loading : public cScreen
 private:
 	sf::Clock clock;
 	short level;
-	sf::Text pass;
+	sf::Text pass,lose;
 	sf::Text load;
 	std::string lvl;
 	bool first;

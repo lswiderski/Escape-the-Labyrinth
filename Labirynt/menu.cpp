@@ -45,7 +45,7 @@ int Menu::Run (sf::RenderWindow &App)
 
 	Menu4.setFont(resources::Font);
 	Menu4.setCharacterSize(20);
-	Menu4.setString("Save");
+	Menu4.setString("Load/Save");
 	Menu4.setPosition(350,220);
 
 	Menu5.setFont(resources::Font);
@@ -296,13 +296,14 @@ int Menu::Run (sf::RenderWindow &App)
 			if (playing)
 			{
 				App.draw(Menu3);
-				App.draw(Menu4);
+				
 			}
 			else
 			{
 				App.draw(Menu1);
-				App.draw(Menu5);
+
 			}
+			App.draw(Menu4);
 			App.draw(Menu2);
 			App.draw(Menu6);
 			App.draw(Menu7);

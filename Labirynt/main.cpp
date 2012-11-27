@@ -253,6 +253,8 @@ Start s8;
 Screens.push_back (&s8);
 KonamiCode s9;
 Screens.push_back (&s9);
+Loadsave s10;
+Screens.push_back (&s10);
 
 //Main loop
 while (screen >= 0)

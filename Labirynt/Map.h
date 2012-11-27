@@ -55,6 +55,7 @@ public:
 	std::vector<std::vector<int>> Npcs;
 	std::vector<std::vector<std::string>> txts;
 	int time_map;
+	std::string mapName;
 	Map(const char *filename);
 	Map(void);
 	~Map(void);

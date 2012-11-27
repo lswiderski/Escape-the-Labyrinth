@@ -88,6 +88,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="KonamiCode.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="Loadsave.cpp" />
     <ClCompile Include="logo.cpp" />
     <ClCompile Include="lose.cpp" />
     <ClCompile Include="main.cpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="KonamiCode.h" />
     <ClInclude Include="Loading.h" />
+    <ClInclude Include="Loadsave.h" />
     <ClInclude Include="logo.h" />
     <ClInclude Include="lose.h" />
     <ClInclude Include="Map.h" />

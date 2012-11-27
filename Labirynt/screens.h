@@ -15,5 +15,6 @@
 #include "Winner.h"
 #include "Start.h"
 #include "KonamiCode.h"
+#include "Loadsave.h"
 
 #endif  SCREENS_H_INCLUDED

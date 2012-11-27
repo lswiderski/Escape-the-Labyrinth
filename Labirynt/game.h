@@ -14,7 +14,7 @@
 class Game : public cScreen
 {
 private:
-	std::vector<std::string> Maps;
+	
 	static bool same;
 	
 	static short map;
@@ -52,7 +52,7 @@ private:
 	int actual_fragment;
 
 	int time_left;
-
+	std::vector<bool> done_maps;
 	sf::Text DialogText;
 	sf::Text Timer;
 	sf::View HUD;
@@ -72,10 +72,12 @@ public:
 		oss << t; 
 		return oss.str();
 	}
+	static std::vector<std::string> Maps;
 	std::string nextLvl;
 	static bool reset;
 	static bool losed;
 	static bool loaded;
+	static bool wrongpath;
 	static int PLAYER_X;
 	static int PLAYER_Y;
 	Game (void);
@@ -83,7 +85,7 @@ public:
 
 	void restart(bool next);
 	void Reset();
-
+	
 	short static getLevel();
 	bool static getSame();
 	void static setLevel(short level);
