@@ -58,7 +58,7 @@ void Game::Reset()
 	G_PLAYER_X=mapa.coordinates[0];
 	G_PLAYER_Y=mapa.coordinates[1];
 	player.teleport(G_PLAYER_X,G_PLAYER_Y);
-	std::cout<<"zresetowalo xD"<<std::endl;
+	//std::cout<<"zresetowalo xD"<<std::endl;
 	
 }
 void Game::restart(bool next){
@@ -67,11 +67,11 @@ void Game::restart(bool next){
 	
 	if(done_maps[player.getLvl()]==true)
 	{
-		std::cout<<"Plansza Byla"<<std::endl;
+		//std::cout<<"Plansza Byla"<<std::endl;
 	}
 	else
 	{
-		std::cout<<"Planszy Niebylo"<<std::endl;
+		//std::cout<<"Planszy Niebylo"<<std::endl;
 	}
 	if(next)
 	{
@@ -114,9 +114,9 @@ void Game::restart(bool next){
 	mapa.loadMap(Maps[player.getLvl()].c_str());
 	if(Maps[player.getLvl()]=="Data/levels/"+mapa.mapName)
 	{
-		std::cout<<"mapa OK"<<std::endl;
+		//std::cout<<"mapa OK"<<std::endl;
 	}
-	else std::cout<<"bledna mapa"<<std::endl;
+	//else std::cout<<"bledna mapa"<<std::endl;
 	G_PLAYER_X=mapa.coordinates[0];
 	G_PLAYER_Y=mapa.coordinates[1];
 	player.teleport(G_PLAYER_X,G_PLAYER_Y);
@@ -215,7 +215,7 @@ Game::Game (void)
 
 		}
 		Maps.push_back(stmp);
-		std::cout<<stmp<<std::endl;
+		//std::cout<<stmp<<std::endl;
 		stmp="";
 	}
 
@@ -246,7 +246,7 @@ int Game::Run (sf::RenderWindow &Window)
 	//actual_dialog=1;
 	//actual_fragment=0;
 	
-
+	showDialogBox=false;
 	same=true;
 	sf::Clock Clock;
 	Czas_Gry.restart();
@@ -304,7 +304,7 @@ int Game::Run (sf::RenderWindow &Window)
 
 		if(winner)
 		{
-			std::cout<<"XDDDDDDDDDDDDDDDDDDDDDDDD"<<std::endl;
+			//std::cout<<"XDDDDDDDDDDDDDDDDDDDDDDDD"<<std::endl;
 			nextLvl="";
 			Reset();
 			win=false;
@@ -398,7 +398,7 @@ int Game::Run (sf::RenderWindow &Window)
 
 			
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
 
 				if(mapa.MapVector[(int)(player.getY()/64)][(int)(player.getX()/64)][1]==4)
@@ -410,9 +410,9 @@ int Game::Run (sf::RenderWindow &Window)
 						//std::cout<<player.getX()/64<<" "<<player.getY()/64<<std::endl;
 						if(mapa.portals[i][1]==(int)player.getY()/64 && mapa.portals[i][0]==(int)player.getX()/64)
 						{
-							std::cout<<"znalazlo: "<<mapa.portals[i][2]<<std::endl;
+							//std::cout<<"znalazlo: "<<mapa.portals[i][2]<<std::endl;
 							nextLvl=mapa.nextMap[mapa.portals[i][2]];
-							std::cout<<"nextlvl: "<<nextLvl<<std::endl;
+							//std::cout<<"nextlvl: "<<nextLvl<<std::endl;
 							break;
 						}
 					}
@@ -711,7 +711,7 @@ int Game::Run (sf::RenderWindow &Window)
 			}
 			
 			mapa.MapVector[(int)(player.getY()/64)][(int)(player.getX()/64)][1]=0;
-			std::cout<<player.getHearts()<<std::endl;
+			//std::cout<<player.getHearts()<<std::endl;
 		}
 		else if(Clock.getElapsedTime().asMilliseconds()>250){
 		if(mapa.MapVector[(int)(player.getY()/64)][(int)(player.getX()/64)][0]==18)

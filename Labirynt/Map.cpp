@@ -7,7 +7,7 @@ Map::Map(void)
 	std::vector<std::vector<int>> Npcs;
 	std::vector<std::vector<std::string>> txts;
 	fp=NULL;
-	loadMap("Data/levels/level1.lvl");
+	loadMap("Data/levels/start.lvl");
 	
 	
 	

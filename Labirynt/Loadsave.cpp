@@ -25,9 +25,19 @@ bool Loadsave::load(int memorycard)
 	int tmp;
 	char idtmp[16];
 	bool donetmp[100];
+	bool flag=false;
+	for (int i=0;i<16;i++)
+	{
+		if(slots[memorycard].mapset_id[i]==Game::LId_map[i])
+			flag=true;
+		else
+		{
+			flag=false;
+			break;
+		}
+	}
 	
-	
-		if(memorycard>-1){
+		if(flag){
 			
 		Game::LPkt=slots[memorycard].player_pkt;
 			
@@ -126,24 +136,14 @@ int Loadsave::Run (sf::RenderWindow &App)
 	for (int i=0;i<3;i++)
 	{
 		using namespace std;
-		cout<<slots[i].player_pkt<<" "<<slots[i].player_lives<<" "<<slots[i].player_map<<endl;
+		
 		for (int j=0;j<16;j++)
 		{
-			cout<<slots[i].mapset_id[j];
+			
 		}
-		cout<<endl;
-		for(int j=0;j<100;j++)
-		{
-			if(slots[i].done_maps[j]==true)
-				cout<<1;
-			else
-			{
-				cout<<0;
-
-			}
-
-		}
-		cout<<endl;
+		
+		
+		
 	}
 	pokaz=false;
 
@@ -188,20 +188,19 @@ int Loadsave::Run (sf::RenderWindow &App)
 					if(menu)
 					{
 						//1 save
-						std::cout<<"save"<<std::endl;
+						
 						save(memory_slot);
-						std::cout<<"saved"<<std::endl;
+					
 					}
 					else 
 					{
 						//2 load
-						std::cout<<"load"<<std::endl;
+						
 						if(!load(memory_slot))
 						{
 							load_flag=true;
-							std::cout<<"error"<<std::endl;
+							
 						}
-						std::cout<<"loaded"<<std::endl;
 					}
 					break;
 				default :
@@ -224,23 +223,11 @@ int Loadsave::Run (sf::RenderWindow &App)
 			{
 				for(int j=0;j<16;j++)
 				{
-					std::cout<<slots[i].mapset_id[j];
-				}
-				std::cout<<std::endl;
-				std::cout<<slots[i].player_map<<" "<<slots[i].player_pkt<<" "<<slots[i].player_lives<<std::endl;
-			
-			for(int j=0;j<100;j++)
-			{
-				if(slots[i].done_maps[j]==true)
-					std::cout<<1;
-				else
-				{
-					std::cout<<0;
-
+					
 				}
 				
-			}
-			std::cout<<std::endl;
+			
+			
 			}
 		}
 		if(memory_slot==0)

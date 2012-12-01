@@ -63,7 +63,7 @@ int Start::Run (sf::RenderWindow &App)
 		App.draw(nazwa);
 		if(clock.getElapsedTime().asSeconds()>1)
 		{
-			Menu1.setString("The evil alchemist kidnapped you");
+			Menu1.setString("The evil alchemist kidnapped you.");
 			Menu1.setPosition(200,225);
 			App.draw(Menu1);
 		}
@@ -71,14 +71,14 @@ int Start::Run (sf::RenderWindow &App)
 		
 		if(clock.getElapsedTime().asSeconds()>3)
 		{
-			Menu1.setString("But you managed to escape from his cell");
+			Menu1.setString("But you managed to escape from his cell.");
 			Menu1.setPosition(200,250);
 			App.draw(Menu1);
 		}
 		
 		if(clock.getElapsedTime().asSeconds()>5)
 		{
-			Menu1.setString("Unfortunately, the lab spans a huge maze.");
+			Menu1.setString("Unfortunately, the lab spans a huge maze");
 			Menu1.setPosition(200,275);
 			App.draw(Menu1);
 		}

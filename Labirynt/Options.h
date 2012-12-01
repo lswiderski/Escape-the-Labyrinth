@@ -6,6 +6,7 @@ class Options : public cScreen
 private:
 
 	sf::Text txt;
+	int mode;
 
 public:
 	static int Music_Volume;

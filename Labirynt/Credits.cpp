@@ -58,14 +58,14 @@ int Credits::Run (sf::RenderWindow &App)
 		App.setView(CameraPosition);
 
 
-		txt.setString("Code & Design: Lukasz Swiderski");
-		txt.setPosition(200,160);
+		txt.setString("Code & Design:	Lukasz Swiderski");
+		txt.setPosition(180,180);
 		App.draw(txt);
-		txt.setString("Music: Marek Rubczewski");
-		txt.setPosition(200,185);
+		txt.setString("               Music:	Marek Rubczewski");
+		txt.setPosition(180,220);
 		App.draw(txt);
-		txt.setString("made by neufrin.com\nin working progress");
-		txt.setPosition(200,210);
+		txt.setString("made by neufrin.com");
+		txt.setPosition(300,570);
 		App.draw(txt);
 
 
