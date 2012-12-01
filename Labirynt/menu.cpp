@@ -76,7 +76,7 @@ int Menu::Run (sf::RenderWindow &App)
 
 	ver.setFont(resources::Font);
 	ver.setCharacterSize(10);
-	ver.setString("ver: 0.2.3a");
+	ver.setString("ver: 0.5.Beta");
 	ver.setPosition(0,590);
 	ver.setColor(sf::Color::Black);
 	sf::View CameraPosition;

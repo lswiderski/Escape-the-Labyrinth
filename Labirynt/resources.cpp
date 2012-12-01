@@ -7,6 +7,7 @@ resources::resources(void)
 	Tiles.loadFromFile("Data/sprites/tile.png");
 	Player.loadFromFile("Data/sprites/Player.png");
 	GUI.loadFromFile("Data/sprites/GUI.png");
+	dialogbox.loadFromFile("Data/images/dialogbox.png");
 
 	s_key.loadFromFile("Data/music/klucz.ogg");
 	s_lancuch.loadFromFile("Data/music/lancuch.ogg");
@@ -31,6 +32,7 @@ sf::Font resources::Font;
 sf::Texture resources::Tiles;
 sf::Texture resources::Player;
 sf::Texture resources::GUI;
+sf::Texture resources::dialogbox;
 
  sf::SoundBuffer resources::s_key;
 sf::SoundBuffer resources::s_lancuch;

@@ -164,12 +164,14 @@ Game::Game (void)
 	dialogBox.setSize(sf::Vector2f(ScreenWidth,100));
 	dialogBox.setFillColor(sf::Color::Blue);
 
+	dialogBG.setTexture(resources::dialogbox);
+	dialogBG.setPosition(80,0);
+
 
 	DialogText.setFont(resources::Font);
 	DialogText.setCharacterSize(15);
 	DialogText.setColor(sf::Color::White);
-	DialogText.setPosition(10,10);
-
+	DialogText.setPosition(100,20);
 
 	Timer.setFont(resources::Font);
 	Timer.setCharacterSize(15);
@@ -819,7 +821,7 @@ int Game::Run (sf::RenderWindow &Window)
 		if(showDialogBox)
 		{
 			Window.setView(Dialog);
-			Window.draw(dialogBox);
+			Window.draw(dialogBG);
 			Window.draw(DialogText);
 		}
 		

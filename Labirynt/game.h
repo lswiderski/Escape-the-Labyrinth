@@ -57,6 +57,7 @@ private:
 	sf::Text Timer;
 	sf::View HUD;
 	sf::View Dialog;
+	sf::Sprite dialogBG;
 	sf::RectangleShape dialogBox;
 	sf::RectangleShape object;
 
