@@ -52,7 +52,7 @@ private:
 	int actual_fragment;
 
 	int time_left;
-	std::vector<bool> done_maps;
+	bool done_maps[100];
 	sf::Text DialogText;
 	sf::Text Timer;
 	sf::View HUD;
@@ -91,5 +91,11 @@ public:
 	void static setLevel(short level);
 	void static setPos(int x, int y);
 	int static LPkt;
+	int static LMap;
+	int static LLives;
+	bool static LDone_map[100];
+	std::string static LId_map;
+	std::string static id_map;
+
 };
 

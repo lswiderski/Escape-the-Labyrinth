@@ -166,44 +166,8 @@ int Menu::Run (sf::RenderWindow &App)
 					}
 					else if(menu==1)
 					{
-						if(playing)
-						{
-							
-
-							tmp[0]=Game::getLevel();
-							tmp[1]=Game::LPkt;
-							fp = fopen("save.dat","w+b");
-							if(fp != NULL)
-							{
-								fwrite(tmp, sizeof(int), 2, fp);
-
-							}
-							
-
-							fclose(fp);
-							stan.setString("Zapisano");
-							saved=true;
-						}
-						else
-						{
-
-							fp = fopen("save.dat","r+b");
-							if(fp != NULL)
-							{
-
-								fread(tmp, sizeof(int), 2, fp);
-
-								Game::setLevel(tmp[0]);
-
-								Game::LPkt=tmp[1];
-								Game::loaded=true;
-								
-								
-								fclose(fp);
-							}
-							stan.setString("Wczytano");
-								saved=true;					
-						}
+						return 10;
+						
 					}
 					else if(menu==3)
 					{

@@ -9,6 +9,11 @@ int Game::PLAYER_Y=100;
 bool Game::loaded=false;
 std::vector<std::string> Game::Maps;
 int Game::LPkt=0;
+int Game::LMap=0;
+int Game::LLives=0;
+bool Game::LDone_map[100];
+std::string Game::LId_map="0000000000000000";
+std::string Game::id_map="0000000000000000";
 
 void Game::setLevel(short lvl)
 {
@@ -72,7 +77,7 @@ void Game::restart(bool next){
 	{
 		for (int i=0;i<Maps.size();i++)
 		{
-			std::cout<<"i: "<<i<<" Maps: "<<Maps[i]<<" nextlvl: "<<nextLvl<<std::endl;
+		//	std::cout<<"i: "<<i<<" Maps: "<<Maps[i]<<" nextlvl: "<<nextLvl<<std::endl;
 			if(Maps[i]=="Data/levels/"+nextLvl)
 			{
 				done_maps[player.getLvl()]=true;
@@ -107,6 +112,11 @@ void Game::restart(bool next){
 	
 	map=player.getLvl();
 	mapa.loadMap(Maps[player.getLvl()].c_str());
+	if(Maps[player.getLvl()]=="Data/levels/"+mapa.mapName)
+	{
+		std::cout<<"mapa OK"<<std::endl;
+	}
+	else std::cout<<"bledna mapa"<<std::endl;
 	G_PLAYER_X=mapa.coordinates[0];
 	G_PLAYER_Y=mapa.coordinates[1];
 	player.teleport(G_PLAYER_X,G_PLAYER_Y);
@@ -181,8 +191,15 @@ Game::Game (void)
 	FILE *fp;
 	fp=fopen("Data/levels/levels.dat", "r+b");
 	std::string stmp;
+	char id_map_tmp[16];
 	char ctmp[1];
 	int h,x;
+	fread(&id_map_tmp, sizeof(char),16,fp);
+	id_map="";
+	for (int i=0;i<16;i++)
+	{
+		id_map+=id_map_tmp[i];
+	}
 	fread(&h, sizeof(int),1,fp);
 
 	for(int i=0;i<h;i++)
@@ -209,8 +226,11 @@ Game::Game (void)
 	showTlo=true;
 	Czas_Gry.restart();
 	przeszly_czas=0;
-done_maps.clear();
-done_maps.resize(Maps.size(),false);
+	for (int i=0;i<100;i++)
+	{
+		done_maps[i]=false;
+	}
+
 }
 
 bool Game::wrongpath=false;
@@ -292,9 +312,14 @@ int Game::Run (sf::RenderWindow &Window)
 		{
 
 
-			player.setLvl(map);
+			player.setLvl(LMap);
 			player.setTotalPkt(LPkt);
 			player.setPkt(LPkt);
+			for(int i=0;i<100;i++)
+			{
+				done_maps[i]=LDone_map[i];
+			}
+			id_map=LId_map;
 			restart(false);
 			loaded=false;
 			continue;
@@ -341,6 +366,14 @@ int Game::Run (sf::RenderWindow &Window)
 				{
 				case sf::Keyboard::Escape:
 					resources::bgm.stop();
+					LLives=player.getLife();
+					LPkt=player.getTotalPkt();
+					LMap=player.getLvl();
+					for(int i=0;i<100;i++)
+					{
+						LDone_map[i]=done_maps[i];
+					}
+					LId_map = id_map;
 					return (0);
 					break; 
 				case sf::Keyboard::F1:

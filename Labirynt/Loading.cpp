@@ -14,9 +14,11 @@ int Loading::Run (sf::RenderWindow &App)
 	sf::Event Event;
 	bool Running = true;
 
+	
 
-	level = Game::getLevel();
-	lvl=Game::ToString(level);
+	if(Game::loaded)
+		level=Game::LMap;
+	
 	
 	pass.setFont(resources::Font);
 	pass.setCharacterSize(20);
@@ -33,7 +35,13 @@ int Loading::Run (sf::RenderWindow &App)
 	sf::Sound win;
 	bool played=false;
 	std::string mapName=Game::Maps[Game::getLevel()];
-
+	std::cout<<mapName<<std::endl;
+	if(Game::loaded)
+	{
+		mapName=Game::Maps[Game::LMap];
+		std::cout<<mapName<<std::endl;
+	}
+	std::cout<<mapName<<std::endl;
 	mapName.erase(0,12);
 	mapName.erase(mapName.size()-4,4);
 
@@ -43,6 +51,7 @@ int Loading::Run (sf::RenderWindow &App)
 	load.setCharacterSize(20);
 	
 	load.setString("Loading level "+mapName);
+	
 	load.setPosition(200,200);
 	load.setColor(sf::Color::White);
 	sf::View CameraPosition;
