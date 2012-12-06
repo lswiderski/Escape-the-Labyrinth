@@ -3,6 +3,7 @@
 #include <iostream>
 #include "resources.h"
 #include "menu.h"
+#include "game.h"
 Winner::Winner(void)
 {
 }
@@ -16,11 +17,8 @@ int Winner::Run (sf::RenderWindow &App)
 	sf::Text nazwa;
 	sf::Clock clock;
 	Menu::playing = false;
-	nazwa.setFont(resources::Font);
-	nazwa.setCharacterSize(30);
-	nazwa.setString("Escape the labyrinth");
-	nazwa.setPosition(230,100);
-	nazwa.setColor(sf::Color::Black);
+	title.setTexture(resources::Game_title);
+	title.setPosition(200,80);
 
 	Menu1.setFont(resources::Font);
 	Menu1.setCharacterSize(20);
@@ -59,12 +57,12 @@ int Winner::Run (sf::RenderWindow &App)
 
 		//Drawing
 		App.setView(CameraPosition);
-		App.draw(nazwa);
+		App.draw(title);
 		Menu1.setString("Congratulations");
-		Menu1.setPosition(350,200);
+		Menu1.setPosition(310,250);
 		App.draw(Menu1);
-		Menu1.setString("You finished the Demo");
-		Menu1.setPosition(250,250);
+		Menu1.setString("You finished the Demo\nand Earned "+Game::ToString(Game::LPkt)+" Points");
+		Menu1.setPosition(270,300);
 		App.draw(Menu1);
 		App.display();
 		App.clear(sf::Color::White);

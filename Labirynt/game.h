@@ -40,17 +40,17 @@ private:
 	int hearts_tmp;
 	int zebrane_mikstury;
 	int przeszly_czas;
-
+	sf::Text cheater;
 	sf::SoundBuffer buffer;
 	sf::Sound sound;
-
+	bool bledna_mapa;
 	bool winner;
 	bool win;
 	bool showDialogBox;
 	bool showTlo;
 	int actual_dialog;
 	int actual_fragment;
-
+	std::vector<int> Map_code;
 	int time_left;
 	bool done_maps[100];
 	sf::Text DialogText;

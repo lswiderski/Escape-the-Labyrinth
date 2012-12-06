@@ -23,8 +23,7 @@ private:
 	 sf::Text Menu7;
 	 std::string Konami;
 	 sf::Text stan;
-
-	 sf::Text nazwa;
+	 sf::Sprite title;
 	 sf::Text ver;
 	 bool saved;
 public:

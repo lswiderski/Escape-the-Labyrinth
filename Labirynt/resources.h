@@ -14,6 +14,11 @@ public:
 	static sf::Texture Player;
 	static sf::Texture GUI;
 	static sf::Texture dialogbox;
+
+	static sf::Texture Neufrin_logo;
+	static sf::Texture passion;
+	static sf::Texture Game_title;
+
 	static sf::SoundBuffer s_key;
 	static sf::SoundBuffer s_lancuch;
 	static sf::SoundBuffer s_menuButton;

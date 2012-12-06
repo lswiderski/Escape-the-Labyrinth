@@ -17,11 +17,8 @@ int Start::Run (sf::RenderWindow &App)
 	sf::Text nazwa;
 	sf::Clock clock;
 	Menu::playing = true;
-	nazwa.setFont(resources::Font);
-	nazwa.setCharacterSize(30);
-	nazwa.setString("Escape the labyrinth");
-	nazwa.setPosition(230,100);
-	nazwa.setColor(sf::Color::Black);
+	title.setTexture(resources::Game_title);
+	title.setPosition(200,80);
 
 	Menu1.setFont(resources::Font);
 	Menu1.setCharacterSize(20);
@@ -60,7 +57,7 @@ int Start::Run (sf::RenderWindow &App)
 
 		//Drawing
 		App.setView(CameraPosition);
-		App.draw(nazwa);
+		App.draw(title);
 		if(clock.getElapsedTime().asSeconds()>1)
 		{
 			Menu1.setString("The evil alchemist kidnapped you.");
@@ -72,27 +69,27 @@ int Start::Run (sf::RenderWindow &App)
 		if(clock.getElapsedTime().asSeconds()>3)
 		{
 			Menu1.setString("But you managed to escape from his cell.");
-			Menu1.setPosition(200,250);
+			Menu1.setPosition(170,275);
 			App.draw(Menu1);
 		}
 		
 		if(clock.getElapsedTime().asSeconds()>5)
 		{
 			Menu1.setString("Unfortunately, the lab spans a huge maze");
-			Menu1.setPosition(200,275);
+			Menu1.setPosition(165,325);
 			App.draw(Menu1);
 		}
 		
 		if(clock.getElapsedTime().asSeconds()>7)
 		{
 			Menu1.setString("and if you want to be safe and you have to beat it");
-			Menu1.setPosition(200,300);
+			Menu1.setPosition(130,375);
 			App.draw(Menu1);
 		}
 		if(clock.getElapsedTime().asSeconds()>9)
 		{
 			Menu1.setString("Good luck");
-			Menu1.setPosition(200,325);
+			Menu1.setPosition(320,425);
 			App.draw(Menu1);
 		}
 		App.display();

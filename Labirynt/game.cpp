@@ -112,11 +112,11 @@ void Game::restart(bool next){
 	
 	map=player.getLvl();
 	mapa.loadMap(Maps[player.getLvl()].c_str());
-	if(Maps[player.getLvl()]=="Data/levels/"+mapa.mapName)
+	if(!(Maps[player.getLvl()]=="Data/levels/"+mapa.mapName && Map_code[player.getLvl()]==mapa.map_code))
 	{
-		//std::cout<<"mapa OK"<<std::endl;
+		bledna_mapa=true;
 	}
-	//else std::cout<<"bledna mapa"<<std::endl;
+
 	G_PLAYER_X=mapa.coordinates[0];
 	G_PLAYER_Y=mapa.coordinates[1];
 	player.teleport(G_PLAYER_X,G_PLAYER_Y);
@@ -128,7 +128,7 @@ void Game::restart(bool next){
 
 Game::Game (void)	
 {
-	
+	bledna_mapa=false;
 	nextLvl="";
 	winner= false;
 	win=false;
@@ -178,7 +178,11 @@ Game::Game (void)
 	Timer.setColor(sf::Color::White);
 	Timer.setPosition(750,7);
 
-
+	cheater.setFont(resources::Font);
+	cheater.setCharacterSize(45);
+	cheater.setColor(sf::Color::White);
+	cheater.setPosition(300,295);
+	cheater.setString("Wrong map file");
 
 	coiny.setFont(resources::Font);
 	coiny.setCharacterSize(15);
@@ -193,6 +197,7 @@ Game::Game (void)
 	FILE *fp;
 	fp=fopen("Data/levels/levels.dat", "r+b");
 	std::string stmp;
+	int tmpint;
 	char id_map_tmp[16];
 	char ctmp[1];
 	int h,x;
@@ -217,13 +222,15 @@ Game::Game (void)
 		Maps.push_back(stmp);
 		//std::cout<<stmp<<std::endl;
 		stmp="";
+		fread(&tmpint, sizeof(int),1,fp);
+		Map_code.push_back(tmpint);
 	}
 
 	fclose(fp);
-
-// 	Maps.push_back("Data/levels/level1.lvl");
-// 	Maps.push_back("Data/levels/level2.lvl");
-// 	Maps.push_back("Data/levels/level3.lvl");
+	for (int i=0;i<Maps.size();i++)
+	{
+		
+	}
 
 	showTlo=true;
 	Czas_Gry.restart();
@@ -280,7 +287,22 @@ int Game::Run (sf::RenderWindow &Window)
 		reset=false;
 		Reset();
 	}
+	if (loaded)
+	{
+
+
+		player.setLvl(LMap);
+		player.setTotalPkt(LPkt);
+		player.setPkt(LPkt);
+		for(int i=0;i<100;i++)
+		{
+			done_maps[i]=LDone_map[i];
+		}
+		id_map=LId_map;
+		restart(false);
+		loaded=false;
 		
+	}
 
 	while (Running)
 	{	
@@ -305,27 +327,13 @@ int Game::Run (sf::RenderWindow &Window)
 		if(winner)
 		{
 			//std::cout<<"XDDDDDDDDDDDDDDDDDDDDDDDD"<<std::endl;
+			LPkt=player.getPkt();
 			nextLvl="";
 			Reset();
 			win=false;
 			return 7;
 		}
-		if (loaded)
-		{
-
-
-			player.setLvl(LMap);
-			player.setTotalPkt(LPkt);
-			player.setPkt(LPkt);
-			for(int i=0;i<100;i++)
-			{
-				done_maps[i]=LDone_map[i];
-			}
-			id_map=LId_map;
-			restart(false);
-			loaded=false;
-			continue;
-		}
+		
 		if(win)
 			{
 				if(!done_maps[player.getLvl()])
@@ -740,81 +748,90 @@ int Game::Run (sf::RenderWindow &Window)
 		
 		
 		Window.setView(camera.getView());
-		mapa.drawMap(Window,player);
-
-		G_PLAYER_X=player.getX();
-		G_PLAYER_Y=player.getY();
-
-		setPos(player.getX(),player.getY());
-		player.Draw(Window);
-		
-		tlo.setOrigin(405,305);
-		tlo.setPosition(player.getX(),player.getY());
-		if(showTlo)
-		Window.draw(tlo);
-
-
-		Window.setView(HUD);
-		gui.setTextureRect(sf::IntRect(1*32,0,32,32));
-		gui.setPosition(720,0);
-		Window.draw(gui);
-
-		gui.setTextureRect(sf::IntRect(2*32,0,32,32));
-		gui.setPosition(370,0);
-		Window.draw(gui);
-		
-		gui.setTextureRect(sf::IntRect(0*32,0,32,32));
-		for(int i=0;i<player.getHearts();i++)
+		if (bledna_mapa)
 		{
-			gui.setPosition(85+i*35,0);
+			Window.draw(cheater);
+			return -1;
+		}
+		else
+		{
+			mapa.drawMap(Window,player);
+
+			G_PLAYER_X=player.getX();
+			G_PLAYER_Y=player.getY();
+
+			setPos(player.getX(),player.getY());
+			player.Draw(Window);
+
+			tlo.setOrigin(405,305);
+			tlo.setPosition(player.getX(),player.getY());
+			if(showTlo)
+				Window.draw(tlo);
+
+
+			Window.setView(HUD);
+			gui.setTextureRect(sf::IntRect(1*32,0,32,32));
+			gui.setPosition(720,0);
 			Window.draw(gui);
-		}
-		
 
-		Window.draw(coiny);
+			gui.setTextureRect(sf::IntRect(2*32,0,32,32));
+			gui.setPosition(370,0);
+			Window.draw(gui);
 
-		coiny.setPosition(0,7);
-		coiny.setString("Lives: "+ToString(player.getLife()));
-		Window.draw(coiny);
+			gui.setTextureRect(sf::IntRect(0*32,0,32,32));
+			for(int i=0;i<player.getHearts();i++)
+			{
+				gui.setPosition(85+i*35,0);
+				Window.draw(gui);
+			}
 
-		Window.draw(keye);
 
-		time_left=mapa.time_map-przeszly_czas+zebrane_mikstury;
+			Window.draw(coiny);
 
-		if(time_left>0 && time_left<11 && !play_timer)
-		{
-			
-			play_timer=true;
-		}
-		
+			coiny.setPosition(0,7);
+			coiny.setString("Lives: "+ToString(player.getLife()));
+			Window.draw(coiny);
 
-		if(play_timer && !actual_playing)
-		{
-			timer.play();
-			play_timer=false;
-			actual_playing=true;
-			
-		}
+			Window.draw(keye);
+
+			time_left=mapa.time_map-przeszly_czas+zebrane_mikstury;
+
+			if(time_left>0 && time_left<11 && !play_timer)
+			{
+
+				play_timer=true;
+			}
+
+
+			if(play_timer && !actual_playing)
+			{
+				timer.play();
+				play_timer=false;
+				actual_playing=true;
+
+			}
 			if(time_left>10)
 			{
 				timer.stop();
 				actual_playing=false;
 			}
-				
 
 
-		if(time_left<0)
+
+			if(time_left<0)
 			{
 				Lose::left_life=player.getLife();
 				player.addLife(-1);
-				
+
 				restart(false);
 				losed=true;
 				return 2;
-		}	
+			}	
 
-		Timer.setString(" : "+ToString(time_left));
-		Window.draw(Timer);
+			Timer.setString(" : "+ToString(time_left));
+			Window.draw(Timer);
+		}
+		
 
 		//if(hud)_hud.pokazHUD(zegarfps, Window,player.getX(),player.getY(),G_PLAYER_X,G_PLAYER_Y,0,0,0);
 

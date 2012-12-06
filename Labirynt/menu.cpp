@@ -28,6 +28,10 @@ int Menu::Run (sf::RenderWindow &App)
 	resources::menu_music.setVolume(Options::Music_Volume);
 
 	Konami="";
+
+	title.setTexture(resources::Game_title);
+	title.setPosition(200,80);
+
 	Menu1.setFont(resources::Font);
 	Menu1.setCharacterSize(20);
 	Menu1.setString("Play");
@@ -68,15 +72,11 @@ int Menu::Run (sf::RenderWindow &App)
 	stan.setPosition(450,220);
 	stan.setColor(sf::Color::Black);
 
-	nazwa.setFont(resources::Font);
-	nazwa.setCharacterSize(30);
-	nazwa.setString("Escape the labyrinth");
-	nazwa.setPosition(230,100);
-	nazwa.setColor(sf::Color::Black);
+	
 
 	ver.setFont(resources::Font);
 	ver.setCharacterSize(10);
-	ver.setString("ver: 0.5.Beta");
+	ver.setString("ver: 0.6");
 	ver.setPosition(0,590);
 	ver.setColor(sf::Color::Black);
 	sf::View CameraPosition;
@@ -196,7 +196,7 @@ int Menu::Run (sf::RenderWindow &App)
 			alpha=alpha+10;
 			if(alpha>alpha_max) alpha=alpha_max;
 		}
-		nazwa.setColor(sf::Color(0, 0, 0, alpha/alpha_div));
+		
 		if (menu==0)
 		{
 			Menu1.setColor(sf::Color(255, 0, 0, 255));
@@ -274,7 +274,7 @@ int Menu::Run (sf::RenderWindow &App)
 		}
 		if(saved)
 			App.draw(stan);	
-		App.draw(nazwa);
+		App.draw(title);
 		App.draw(ver);
 		App.display();
 		

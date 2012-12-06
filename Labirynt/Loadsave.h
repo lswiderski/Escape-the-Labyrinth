@@ -5,8 +5,9 @@
 #include "game.h"
 class Loadsave : public cScreen
 {
-	sf::Text load_t,save_t,m1,m2,m3,error_load;
+	sf::Text load_t,save_t,m1,m2,m3,error_load,stan;
 	int menu;
+	int staninfo;
 	bool load(int memorycard);
 	bool save(int memorycard);
 	int memory_slot;

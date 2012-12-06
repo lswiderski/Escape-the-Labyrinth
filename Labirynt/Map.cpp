@@ -34,6 +34,8 @@ void Map::loadMap(const char *filename)
 	if(fp != NULL)
 	{
 		fread(tmp,sizeof(int),1,fp);
+		map_code=tmp[0];
+		fread(tmp,sizeof(int),1,fp);
 		for (int i=0;i<tmp[0];i++)
 		{
 
@@ -42,7 +44,7 @@ void Map::loadMap(const char *filename)
 		}
 		mapName=stmp;
 		stmp="";
-		std::cout<<"mapName: "<<mapName<<std::endl;
+	
 		fread(loadx, sizeof(int), 1 , fp);
 		fread(loady, sizeof(int), 1 , fp);
 		fread(loadz, sizeof(int), 1 , fp);
@@ -68,7 +70,7 @@ void Map::loadMap(const char *filename)
 	
 		fread(coordinates, sizeof(int), 2 , fp);
 		fread(&time_map, sizeof(int), 1, fp);
-		std::cout<<"time: "<<time_map<<std::endl;
+		//std::cout<<"time: "<<time_map<<std::endl;
 		fread(&vlevers, sizeof(int),1,fp);
 		for (int i=0;i<vlevers;i++)
 		{
@@ -154,7 +156,7 @@ void Map::loadMap(const char *filename)
 		}
 		
 		fread(tmp, sizeof(int),1,fp);
-		std::cout<<tmp[0]<<std::endl;
+	//	std::cout<<tmp[0]<<std::endl;
 		for (int j=0;j<tmp[0];j++)
 		{
 
@@ -181,12 +183,12 @@ void Map::loadMap(const char *filename)
 		}
 
 
-		std::cout<<nextMap.size()<<std::endl;
+		//std::cout<<nextMap.size()<<std::endl;
 		fclose(fp);
 		for (int i=0;i<nextMap.size();i++)
 		{
 			
-			std::cout<<"Next Map: "<<nextMap[i]<<std::endl;
+			//std::cout<<"Next Map: "<<nextMap[i]<<std::endl;
 		}
 		
 	}
@@ -284,7 +286,7 @@ bool Map::moveBox(int y,int x, int direct)
 				else if(boxs[i][0]==x && boxs[i][1]==y)
 				{
 					MapVector[boxs[i][3]][boxs[i][2]][0]=25;
-					std::cout<<"kurwa cos poszlo nie tak"<<std::endl;
+					
 					break;
 				}
 			}

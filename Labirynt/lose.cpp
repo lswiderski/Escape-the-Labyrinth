@@ -23,11 +23,8 @@ int Lose::Run (sf::RenderWindow &App)
 	sf::Text nazwa;
 	sf::Clock clock;
 	Menu::playing = false;
-	nazwa.setFont(resources::Font);
-	nazwa.setCharacterSize(30);
-	nazwa.setString("Escape the labyrinth");
-	nazwa.setPosition(230,100);
-	nazwa.setColor(sf::Color::Black);
+	title.setTexture(resources::Game_title);
+	title.setPosition(200,80);
 	
 	Menu1.setFont(resources::Font);
 	Menu1.setCharacterSize(20);
@@ -79,12 +76,12 @@ int Lose::Run (sf::RenderWindow &App)
 		}
 		//Drawing
 		App.setView(CameraPosition);
-		App.draw(nazwa);
-		Menu1.setString("You Died");
-		Menu1.setPosition(350,200);
+		App.draw(title);
+		Menu1.setString("You Died and earned "+Game::ToString(Game::LPkt)+" Points");
+		Menu1.setPosition(220,250);
 		App.draw(Menu1);
 		Menu1.setString("So Sorry");
-		Menu1.setPosition(350,250);
+		Menu1.setPosition(320,300);
 		App.draw(Menu1);
 		App.display();
 		App.clear(sf::Color::White);

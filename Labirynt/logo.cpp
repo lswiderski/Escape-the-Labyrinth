@@ -22,9 +22,9 @@ int Logo::Run (sf::RenderWindow &App)
 	sf::Texture Image2;
 	sf::Sprite glhf;
 
-	if (!Image.loadFromFile("Data/images/neufrin.gif"))
+	if (!Image.loadFromFile("Data/images/logo_gear.png"))
 	{
-		std::cerr<<"Error loading neufrin.gif"<<std::endl;
+		std::cerr<<"Error loading logo_gear.png"<<std::endl;
 		return (-1);
 	}
 	Sprite.setTexture(Image);
@@ -32,15 +32,15 @@ int Logo::Run (sf::RenderWindow &App)
 	Sprite.setOrigin(Image.getSize().x/2, Image.getSize().y/2);
 	Sprite.setPosition(400,200);
 
-	if (!Image2.loadFromFile("Data/images/glhf.png"))
+	if (!Image2.loadFromFile("Data/images/passion.png"))
 	{
-		std::cerr<<"Error loading glhf.png"<<std::endl;
+		std::cerr<<"Error loading passion.png"<<std::endl;
 		return (-1);
 	}
 	glhf.setTexture(Image2);
 	glhf.setColor(sf::Color(255, 255, 255, alphab));
 	glhf.setOrigin(Image2.getSize().x/2, Image2.getSize().y/2);
-	glhf.setPosition(400,300);
+	glhf.setPosition(400,330);
 	
 	autor.setFont(resources::Font);
 	autor.setCharacterSize(16);

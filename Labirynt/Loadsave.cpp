@@ -48,12 +48,14 @@ bool Loadsave::load(int memorycard)
 						Game::LId_map+=slots[memorycard].mapset_id[i];
 					for(int i=0;i<100;i++)
 						Game::LDone_map[i]=slots[memorycard].done_maps[i];
+					Game::loaded=true;
+					Menu::playing=true;
+					return true;
 		}
 		
 		
-	Game::loaded=true;
-	Menu::playing=true;
-	return true;	
+	
+	return false;	
 
 }
 bool Loadsave::save(int memorycard)
@@ -88,7 +90,11 @@ int Loadsave::Run (sf::RenderWindow &App)
 	sf::Event Event;
 	bool Running = true;
 	menu=0;
-
+	stan.setFont(resources::Font);
+	stan.setCharacterSize(20);
+	stan.setPosition(300,300);
+	stan.setString("");
+	stan.setColor(sf::Color::Black);
 	m1.setFont(resources::Font);
 	m1.setCharacterSize(20);
 	m1.setString("-Slot 1-");
@@ -123,7 +129,7 @@ int Loadsave::Run (sf::RenderWindow &App)
 	save_t.setPosition(300,400);
 	load_flag=false;
 	memory_slot=0;
-
+	staninfo=0;
 	sf::View CameraPosition;
 	CameraPosition=App.getDefaultView();
 
@@ -190,17 +196,18 @@ int Loadsave::Run (sf::RenderWindow &App)
 						//1 save
 						
 						save(memory_slot);
-					
+						staninfo=1;
 					}
 					else 
 					{
 						//2 load
 						
-						if(!load(memory_slot))
+						if(load(memory_slot))
 						{
-							load_flag=true;
+							staninfo=2;
 							
 						}
+						else staninfo=3;
 					}
 					break;
 				default :
@@ -258,13 +265,28 @@ int Loadsave::Run (sf::RenderWindow &App)
 			save_t.setColor(sf::Color(0, 0, 0, 255));
 			load_t.setColor(sf::Color(255, 0, 0, 255));
 		}
-		
+		if(staninfo==0)
+		{
+			stan.setString("");
+		}
+		else if (staninfo==1)
+		{
+			stan.setString("Saved");
+		}
+		else if(staninfo==2)
+		{
+			stan.setString("Loaded");
+		}
+		else if(staninfo==3)
+		{
+			stan.setString("Error");
+		}
 		App.draw(m1);
 		App.draw(m2);
 		App.draw(m3);
 		App.draw(load_t);
 		App.draw(save_t);
-
+		App.draw(stan);
 		if(load_flag)
 			App.draw(error_load);
 			

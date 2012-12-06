@@ -9,6 +9,10 @@ resources::resources(void)
 	GUI.loadFromFile("Data/sprites/GUI.png");
 	dialogbox.loadFromFile("Data/images/dialogbox.png");
 
+	Neufrin_logo.loadFromFile("Data/images/logo_gear.png");
+	passion.loadFromFile("Data/images/passion.png");
+	Game_title.loadFromFile("Data/images/title.png");
+
 	s_key.loadFromFile("Data/music/klucz.ogg");
 	s_lancuch.loadFromFile("Data/music/lancuch.ogg");
 	s_menuButton.loadFromFile("Data/music/menubutton.ogg");
@@ -33,6 +37,10 @@ sf::Texture resources::Tiles;
 sf::Texture resources::Player;
 sf::Texture resources::GUI;
 sf::Texture resources::dialogbox;
+
+sf::Texture resources::Neufrin_logo;
+sf::Texture resources::passion;
+sf::Texture resources::Game_title;
 
  sf::SoundBuffer resources::s_key;
 sf::SoundBuffer resources::s_lancuch;
