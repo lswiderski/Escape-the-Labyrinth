@@ -61,7 +61,7 @@ int Winner::Run (sf::RenderWindow &App)
 		Menu1.setString("Congratulations");
 		Menu1.setPosition(310,250);
 		App.draw(Menu1);
-		Menu1.setString("You finished the Demo\nand Earned "+Game::ToString(Game::LPkt)+" Points");
+		Menu1.setString("You Escaped\nand Earned "+Game::ToString(Game::LPkt)+" Points");
 		Menu1.setPosition(270,300);
 		App.draw(Menu1);
 		App.display();

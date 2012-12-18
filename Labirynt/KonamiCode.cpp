@@ -55,7 +55,7 @@ int KonamiCode::Run (sf::RenderWindow &App)
 					return(-1);
 					break;
 				case sf::Keyboard::Up:
-					if(lvl<2)
+					if(lvl<Game::Maps.size()-1)
 					lvl++;
 					break;
 				case sf::Keyboard::Down:

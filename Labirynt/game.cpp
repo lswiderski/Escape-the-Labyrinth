@@ -227,6 +227,7 @@ Game::Game (void)
 	}
 
 	fclose(fp);
+	LId_map = id_map;
 	for (int i=0;i<Maps.size();i++)
 	{
 		
@@ -398,6 +399,7 @@ int Game::Run (sf::RenderWindow &Window)
 					break;
 				case sf::Keyboard::R:
 					restart(false);
+					player.addLife(-1);
 					break;
 				default:
 					break;

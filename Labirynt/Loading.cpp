@@ -76,7 +76,7 @@ int Loading::Run (sf::RenderWindow &App)
 	
 
 		//Drawing
-		if(clock.getElapsedTime().asSeconds()>3)
+		if(clock.getElapsedTime().asSeconds()>1)
 		{first=false;
 		resources::bgm.stop();
 			return 1;}

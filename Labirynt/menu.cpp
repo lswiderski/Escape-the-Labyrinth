@@ -16,9 +16,9 @@ int Menu::Run (sf::RenderWindow &App)
 	sf::Event Event;
 	bool Running = true;
 	int alpha = 0;
-	
+	bool flag=false;
 	int menu = 0;
-
+	sf::Clock logo_clock;
 	sf::Sound SoundButtons;
 	SoundButtons.setBuffer(resources::s_menuButton);
 	bool play=false;
@@ -28,9 +28,9 @@ int Menu::Run (sf::RenderWindow &App)
 	resources::menu_music.setVolume(Options::Music_Volume);
 
 	Konami="";
-
+	int title_pos=80;
 	title.setTexture(resources::Game_title);
-	title.setPosition(200,80);
+	title.setPosition(200,title_pos);
 
 	Menu1.setFont(resources::Font);
 	Menu1.setCharacterSize(20);
@@ -76,7 +76,7 @@ int Menu::Run (sf::RenderWindow &App)
 
 	ver.setFont(resources::Font);
 	ver.setCharacterSize(10);
-	ver.setString("ver: 0.6");
+	ver.setString("ver: 1.0");
 	ver.setPosition(0,590);
 	ver.setColor(sf::Color::Black);
 	sf::View CameraPosition;
@@ -251,6 +251,23 @@ int Menu::Run (sf::RenderWindow &App)
 			Menu7.setColor(sf::Color(0, 0, 0, 255));
 		}
 
+		if(logo_clock.getElapsedTime().asMilliseconds()>10)
+		{
+			if(flag)
+				title_pos++;
+			else
+			{
+				title_pos--;
+			}
+			if(title_pos>=80)
+				flag=false;
+			else if (title_pos<=50)
+			{
+				flag=true;
+			}
+			logo_clock.restart();
+		}
+		title.setPosition(200,title_pos);
 
 		//Drawing
 		App.clear(sf::Color::White);
